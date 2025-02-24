@@ -5,5 +5,4 @@ faiss-cpu
 sentence-transformers
 langchain-huggingface
 langchain_core
-langchain_groq
 pandas
