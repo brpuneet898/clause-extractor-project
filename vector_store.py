@@ -27,7 +27,7 @@ def create_vector_store(directory, vector_store_path):
                 doc_content = f"Clause Name: {clause_name}\nClause Description: {clause_desc}\nClause Type: {clause_type}\nDocument Type: {document_type}"
                 document = Document(
                     page_content=doc_content,
-                    metadata={"source": filename, "page": 1, "document_type": document_type}  
+                    metadata={"source": filename, "page": 1, "document_type": document_type, "clause_name": clause_name}  
                 )
                 all_documents.append(document)
                 total_characters += len(doc_content)
@@ -66,10 +66,11 @@ def load_vector_store(vector_store_path):
 
 def find_document_type(vector_store, text):
     logging.debug(f"Searching for document type with text: {text[:500]}...") 
-    results = vector_store.similarity_search(text, k=1)
+    results = vector_store.similarity_search(text, k=10)
     logging.debug(f"Search results: {results}")
     if results:
         document_type = results[0].metadata.get("document_type", "Unknown")
-        logging.debug(f"Found document type: {document_type}")
-        return document_type
-    return "Unknown"
+        clause_names = list(set(result.metadata.get("clause_name", "Unknown") for result in results))
+        logging.debug(f"Found document type: {document_type} with clause names: {clause_names}")
+        return document_type, clause_names
+    return "Unknown", []

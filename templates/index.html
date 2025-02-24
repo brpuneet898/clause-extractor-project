@@ -26,6 +26,16 @@
         The document type of the uploaded file is:
         <strong>{{ document_type }}</strong>
       </p>
+      {% if clause_names %}
+      <p>
+        The clause names in the uploaded file are:
+        <ul>
+          {% for clause_name in clause_names %}
+          <li>{{ clause_name }}</li>
+          {% endfor %}
+        </ul>
+      </p>
+      {% endif %}
       {% endif %}
     </div>
   </body>

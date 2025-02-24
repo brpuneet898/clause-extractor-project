@@ -18,7 +18,8 @@ vector_store = load_vector_store(vector_store_path)
 @app.route('/')
 def index():
     document_type = request.args.get('document_type')
-    return render_template('index.html', document_type=document_type)
+    clause_names = request.args.getlist('clause_names')
+    return render_template('index.html', document_type=document_type, clause_names=clause_names)
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -34,9 +35,9 @@ def upload():
         file.save(file_path)
         pdf_text = extract_text_from_pdf(file_path)
         logging.debug(f"Extracted text from PDF: {pdf_text[:500]}...")  
-        document_type = find_document_type(vector_store, pdf_text)
+        document_type, clause_names = find_document_type(vector_store, pdf_text)
         
-        return redirect(url_for('index', document_type=document_type))
+        return redirect(url_for('index', document_type=document_type, clause_names=clause_names))
     
     return redirect(url_for('index'))
 
