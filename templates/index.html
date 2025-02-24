@@ -13,10 +13,20 @@
     <div class="container">
       <h1>Clause Extractor App</h1>
       <p>Please upload your contract in PDF format.</p>
-      <form action="#" method="POST" enctype="multipart/form-data">
+      <form
+        action="{{ url_for('upload') }}"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <input type="file" name="contract" accept="application/pdf" required />
         <button type="submit">Upload</button>
       </form>
+      {% if document_type %}
+      <p>
+        The document type of the uploaded file is:
+        <strong>{{ document_type }}</strong>
+      </p>
+      {% endif %}
     </div>
   </body>
 </html>
