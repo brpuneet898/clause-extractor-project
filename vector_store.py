@@ -66,7 +66,7 @@ def load_vector_store(vector_store_path):
 
 def find_document_type(vector_store, text):
     logging.debug(f"Searching for document type with text: {text[:500]}...") 
-    results = vector_store.similarity_search(text, k=10)
+    results = vector_store.similarity_search(text, k=100)
     logging.debug(f"Search results: {results}")
     if results:
         document_type = results[0].metadata.get("document_type", "Unknown")
