@@ -6,3 +6,5 @@ sentence-transformers
 langchain-huggingface
 langchain_core
 pandas
+requests
+groq
