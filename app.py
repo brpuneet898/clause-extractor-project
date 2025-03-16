@@ -67,7 +67,7 @@ def extract_document_info_with_groq(pdf_text):
     prompt_text = f"""
     Based on the following contract text, extract:
     - The document type
-    - A list of clause names
+    - A list of clause names take it from the document only. If and only if clause name is not present, give it a name from the vector store.
 
     Text:
     {pdf_text}
