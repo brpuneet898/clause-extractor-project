@@ -8,3 +8,4 @@ langchain_core
 pandas
 requests
 groq
+python-docx
