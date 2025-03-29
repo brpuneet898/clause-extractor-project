@@ -48,3 +48,9 @@ button {
 button:hover {
     background-color: #4cae4c;
 }
+
+#success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 20px;
+}

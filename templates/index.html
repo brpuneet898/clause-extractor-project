@@ -21,7 +21,7 @@
         <input type="file" name="contract" accept="application/pdf" required />
         <button type="submit">Upload</button>
       </form>
-      {% if document_type %}
+      <!-- {% if document_type %}
       <p>
         The document type of the uploaded file is:
         <strong>{{ document_type }}</strong>
@@ -35,7 +35,18 @@
             {% endfor %}
           </ol>
         </p>
-      {% endif %}
+      {% endif %} -->
+      <p id="success-message" style="display: none;">
+        The file has been extracted and downloaded successfully!
+      </p>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const successMessage = document.getElementById("success-message");
+        if (window.location.href.includes("downloaded=true")) {
+          successMessage.style.display = "block";
+        }
+      });
+    </script>
   </body>
 </html>
