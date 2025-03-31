@@ -14,9 +14,7 @@ app = Flask(__name__)
 
 documents_dir = os.path.join(os.path.dirname(__file__), "documents")
 vector_store_path = os.path.join(os.path.dirname(__file__), "vector_store")
-
 # vector_store, total_characters, total_csvs, split_documents, total_documents = create_vector_store(documents_dir, vector_store_path)
-
 vector_store = load_vector_store(vector_store_path)
 
 with open("config.yaml", "r") as file:
@@ -48,16 +46,9 @@ def upload():
         file_path = os.path.join(documents_dir, file.filename)
         file.save(file_path)
         pdf_text = extract_text_from_pdf(file_path)
-        # logging.debug(f"Extracted text from PDF: {pdf_text[:500]}...")  
-        # document_type, clause_names = find_document_type(vector_store, pdf_text)
         document_type, clauses = extract_document_info_with_groq(pdf_text)
-        
-        # return redirect(url_for('index', document_type=document_type, clause_names=clause_names))
-
         docx_path = os.path.join(documents_dir, "extract.docx")
         generate_docx_file(docx_path, document_type, clauses)
-
-        # Provide the file for download
         return send_file(docx_path, as_attachment=True)
     
     return redirect(url_for('index'))
@@ -87,11 +78,6 @@ def extract_text_from_pdf(file_path):
     return pdf_text
 
 def extract_document_info_with_groq(pdf_text):
-    # prompt_text = f"""
-    # Based on the following contract text, extract:
-    # - The document type
-    # - A list of clause names.
-
     prompt_text = f"""
     Based on the following contract text, extract:
     - A list of clauses and their content in the following format:
@@ -110,52 +96,6 @@ def extract_document_info_with_groq(pdf_text):
     - Clause 1: <Clause Name> - <Clause Content>
     - Clause 2: <Clause Name> - <Clause Content>
     """
-
-    # try:
-    #     chat_completion = groq_client.chat.completions.create(
-    #         messages=[{"role": "user", "content": prompt_text}],
-    #         model=model,
-    #         stream=False
-    #     )
-
-    #     message_content = chat_completion.choices[0].message.content.strip()
-    #     logging.debug(f"Full Response: {message_content}")
-
-    #     document_type = ""
-    #     clauses = {}
-
-    #     if "Document Type:" in message_content:
-    #         start_idx = message_content.find("Document Type:") + len("Document Type:")
-    #         end_idx = message_content.find("\n", start_idx)
-    #         document_type = message_content[start_idx:end_idx].strip()
-
-    #     # Extract the clauses and their content
-    #     # clause_lines = message_content.split("\n")
-    #     # for line in clause_lines:
-    #     #     if line.strip().startswith("Clause"):
-    #     #         parts = line.split(":", 1)
-    #     #         if len(parts) == 2:
-    #     #             clause_name = parts[0].strip()
-    #     #             clause_content = parts[1].strip()
-    #     #             clauses[clause_name] = clause_content
-
-    #     clause_lines = message_content.split("- Clause")
-    #     for clause_line in clause_lines:
-    #         if clause_line.strip():  # Avoid empty lines
-    #             parts = clause_line.split(":", 1)
-    #             if len(parts) == 2:
-    #                 clause_name = parts[0].strip()
-    #                 clause_content = parts[1].strip()
-    #                 clauses[clause_name] = clause_content
-
-    #     logging.debug(f"Extracted Document Type: {document_type}")
-    #     logging.debug(f"Extracted Clauses: {clauses}")
-
-    #     return document_type, clauses
-
-    # except Exception as e:
-    #     logging.error(f"Error in Groq API call: {str(e)}")
-    #     return 'Error', []
 
     try:
         chat_completion = groq_client.chat.completions.create(
@@ -192,6 +132,7 @@ def extract_document_info_with_groq(pdf_text):
     except Exception as e:
         logging.error(f"Error in Groq API call: {str(e)}")
         return 'Error', {}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
