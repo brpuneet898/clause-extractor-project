@@ -8,7 +8,7 @@ from groq import Groq
 import requests
 from docx import Document
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -46,7 +46,7 @@ def upload():
         file_path = os.path.join(documents_dir, file.filename)
         file.save(file_path)
         pdf_text = extract_text_from_pdf(file_path)
-        document_type, clauses = extract_document_info_with_groq(pdf_text)
+        document_type, clauses = extract_document_info_with_groq(pdf_text, input_text, output_text)
         docx_path = os.path.join(documents_dir, "extract.docx")
         generate_docx_file(docx_path, document_type, clauses)
         return send_file(docx_path, as_attachment=True)
@@ -65,7 +65,7 @@ def generate_docx_file(docx_path, document_type, clauses):
         clauses_list.pop(0)
 
     for clause_name, clause_content in clauses_list:
-        document.add_paragraph(f"{clause_name} - {clause_content}", style='List Bullet')
+        document.add_paragraph(f"{clause_name} - {clause_content}")
 
     document.save(docx_path)
 
@@ -77,24 +77,42 @@ def extract_text_from_pdf(file_path):
             pdf_text += page.extract_text()
     return pdf_text
 
-def extract_document_info_with_groq(pdf_text):
+def convert_docx_to_text(docx_path):
+    document = Document(docx_path)
+    text = "\n".join([para.text for para in document.paragraphs])
+    return text
+
+input_file_path = "./finetune/input1.pdf"
+output_file_path = "./finetune/output1.docx"
+input_text = extract_text_from_pdf(input_file_path)
+output_text = convert_docx_to_text(output_file_path)
+# logging.debug(f"Input Text: {input_text}")
+# logging.debug(f"Output Text: {output_text}")
+
+def extract_document_info_with_groq(pdf_text, input_text, output_text):
     prompt_text = f"""
-    Based on the following contract text, extract:
-    - A list of clauses and their content in the following format:
+    The following is an example of a contract clause extraction task. We have an input contract text and an expected output text with extracted clauses. Your goal is to extract the clauses from the provided contract text and match the structure of the expected output text.
+
+    Example:
+    Input Contract Text:
+    {input_text}
+
+    Expected Output:
+    {output_text}
+
+    Your task:
+    Given the following contract text:
+    {pdf_text}
+
+    Please extract the clauses and their content in the format below:
+    - Document Type: <document_type>
     - Clause 1: <Clause Name> - <Clause Content>
     - Clause 2: <Clause Name> - <Clause Content>
+    - ...
 
     If clause names are explicitly mentioned before each clause description, extract those names directly.
     If clause names are not explicitly mentioned, identify the key idea of each clause and match it with relevant clause names from a legal/contractual context. Use the most relevant clause names based on similarity.
     But the clause description should be taken only from the document.
-
-    Text:
-    {pdf_text}
-
-    Please provide the document type and clause names in this format:
-    - Document Type: <document_type>
-    - Clause 1: <Clause Name> - <Clause Content>
-    - Clause 2: <Clause Name> - <Clause Content>
     """
 
     try:
@@ -105,7 +123,7 @@ def extract_document_info_with_groq(pdf_text):
         )
 
         message_content = chat_completion.choices[0].message.content.strip()
-        logging.debug(f"Full Response: {message_content}")
+        # logging.debug(f"Full Response: {message_content}")
 
         document_type = ""
         clauses = {}
@@ -124,13 +142,13 @@ def extract_document_info_with_groq(pdf_text):
                     clause_content = parts[1].strip()
                     clauses[clause_name] = clause_content
 
-        logging.debug(f"Extracted Document Type: {document_type}")
-        logging.debug(f"Extracted Clauses: {clauses}")
+        # logging.debug(f"Extracted Document Type: {document_type}")
+        # logging.debug(f"Extracted Clauses: {clauses}")
 
         return document_type, clauses
 
     except Exception as e:
-        logging.error(f"Error in Groq API call: {str(e)}")
+        # logging.error(f"Error in Groq API call: {str(e)}")
         return 'Error', {}
 
 

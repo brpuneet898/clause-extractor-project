@@ -65,12 +65,12 @@ def load_vector_store(vector_store_path):
     return FAISS.load_local(vector_store_path, embeddings, allow_dangerous_deserialization=True)
 
 def find_document_type(vector_store, text):
-    logging.debug(f"Searching for document type with text: {text[:500]}...") 
+    # logging.debug(f"Searching for document type with text: {text[:500]}...") 
     results = vector_store.similarity_search(text, k=100)
-    logging.debug(f"Search results: {results}")
+    # logging.debug(f"Search results: {results}")
     if results:
         document_type = results[0].metadata.get("document_type", "Unknown")
         clause_names = list(set(result.metadata.get("clause_name", "Unknown") for result in results))
-        logging.debug(f"Found document type: {document_type} with clause names: {clause_names}")
+        # logging.debug(f"Found document type: {document_type} with clause names: {clause_names}")
         return document_type, clause_names
     return "Unknown", []
