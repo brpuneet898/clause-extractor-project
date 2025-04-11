@@ -81,21 +81,23 @@ To set up the project locally, follow these steps:
 
 ## Project Structure
 
+```
 clause-extractor-project/
 │
-├── [app.py] # Main Flask application
-├── [vector_store.py] # Vector store creation and loading logic
+├── app.py                 # Main Flask application
+├── vector_store.py        # Vector store creation and loading logic
 ├── templates/
-│ └── [index.html] # HTML template for the web interface
+│   └── index.html         # HTML template for the web interface
 ├── static/
-│ └── [style.css] # CSS for styling the web interface
-├── documents/ # Directory for uploaded and processed documents
-├── [config.yaml] # Configuration file for API keys
-├── [requirements.txt] # Python dependencies
-├── [prompt.txt] # Prompt used for clause extraction
-├── .gitignore # Git ignore file
-├── images/ # Added images for documentation
-└── README.md # Project documentation
+│   └── style.css          # CSS for styling the web interface
+├── documents/             # Directory for uploaded and processed documents
+├── config.yaml            # Configuration file for API keys
+├── requirements.txt       # Python dependencies
+├── prompt.txt             # Prompt used for clause extraction
+├── .gitignore             # Git ignore file
+├── images/                # Added images for documentation
+└── README.md              # Project documentation
+```
 
 ## Technologies Used
 
