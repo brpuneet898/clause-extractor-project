@@ -6,3 +6,4 @@
 ./analysis_results
 ./config.yaml
 ./finetune
+./*.txt
