@@ -1,0 +1,26 @@
+llm_model: "LLaMA 3.3 70B" 
+
+retrieval:
+  top_k: 4  
+  similarity_threshold: 0.8  
+
+generation:
+  temperature: 0.2  
+  top_p: 0.95 
+
+prompting:
+  method: "Few-shot + System + Role-based + Contextual Prompting"
+  context_window_tokens: 20000  
+  overlap_tokens: 200  
+
+embedding:
+  splitter: "RecursiveCharacterTextSplitter"
+  chunk_size: 128000  
+  chunk_overlap: 200
+
+database:
+  vector_store: "FAISS"
+  embedding_model: "MiniLM"
+
+api:
+  provider: "Groq API"  
