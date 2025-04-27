@@ -1,0 +1,18 @@
+prompt: |
+  Apply a step-by-step method (Chain of Thought) to accurately extract clauses.
+
+  Step-by-Step Process:
+  1. Read and understand the entire contract text.
+  2. Detect major logical sections that represent clauses.
+  3. Determine if a clause has an explicit name.
+  4. If missing, thoughtfully infer a clause name based on standard legal categories.
+  5. Copy the description exactly as it appears.
+  6. Format the output neatly.
+
+  Output Template:
+  - Document Type: <document_type>
+  - Clause 1: <Clause Name> - <Clause Content>
+  - Clause 2: <Clause Name> - <Clause Content>
+
+  Contract for Extraction:
+  {contract_text}

@@ -1,0 +1,17 @@
+prompt: |
+  Extract the clauses from the following contract text.
+
+  Your Task:
+  - Read the full contract text carefully.
+  - Identify individual clauses either by explicit clause names or by understanding the context.
+  - If a clause name is provided, use it directly. If it is missing, assign an appropriate legal clause name based on standard contract terminology.
+  - Ensure that the description of the clause is taken directly and only from the contract text. Do not invent or hallucinate content.
+  - Format your answer strictly as follows:
+
+    - Document Type: <document_type>
+    - Clause 1: <Clause Name> - <Clause Content>
+    - Clause 2: <Clause Name> - <Clause Content>
+    - ...
+
+  Contract Text:
+  {contract_text}

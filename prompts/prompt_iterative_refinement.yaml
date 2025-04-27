@@ -1,0 +1,22 @@
+prompt: |
+  Apply Iterative Refinement Approach:
+
+  1st Pass:
+  - Do a rough scan to identify potential clauses.
+  - Extract clause content without worrying about perfect names.
+
+  2nd Pass:
+  - Refine clause names based on legal standards.
+  - Group or split clauses logically if necessary.
+
+  Final Pass:
+  - Review formatting, clause names, and descriptions carefully.
+  - Make sure output is clean, precise, and uses content directly from the contract.
+
+  Output Structure:
+  - Document Type: <document_type>
+  - Clause 1: <Clause Name> - <Clause Content>
+  - Clause 2: <Clause Name> - <Clause Content>
+
+  Analyze this contract text:
+  {contract_text}

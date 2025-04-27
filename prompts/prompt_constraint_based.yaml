@@ -1,0 +1,16 @@
+prompt: |
+  Important Constraints to Follow:
+
+  Constraints:
+  - Clause content must be copied exactly from the document.
+  - Do not add, paraphrase, or assume information.
+  - Always assign a clause name, even if it requires inference.
+  - Ensure formatting matches the specified style exactly.
+
+  Output Format:
+  - Document Type: <document_type>
+  - Clause 1: <Clause Name> - <Clause Content>
+  - Clause 2: <Clause Name> - <Clause Content>
+
+  Contract Text for Extraction:
+  {contract_text}

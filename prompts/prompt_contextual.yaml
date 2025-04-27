@@ -1,0 +1,21 @@
+prompt: |
+  Contextual Understanding Instructions:
+
+  Context:
+  - Contracts may vary in formatting, language, and structure.
+  - Some clauses will be clearly labeled; others will require intelligent inference.
+  - Always prefer assigning conventional legal clause names.
+
+  Your Task:
+  1. Analyze the provided contract with sensitivity to its context.
+  2. Identify all meaningful clauses and their content.
+  3. Maintain fidelity to the document for the content body.
+  4. Organize the output in a consistent, easy-to-read format.
+
+  Format Required:
+  - Document Type: <document_type>
+  - Clause 1: <Clause Name> - <Clause Content>
+  - Clause 2: <Clause Name> - <Clause Content>
+
+  Begin analyzing the contract text below:
+  {contract_text}

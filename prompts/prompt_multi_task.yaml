@@ -1,0 +1,20 @@
+prompt: |
+  Perform multiple tasks simultaneously:
+
+  Tasks:
+  - Task 1: Identify the document type from the contract text.
+  - Task 2: Detect and extract all clauses.
+  - Task 3: Assign standard legal clause names if not explicitly stated.
+  - Task 4: Maintain fidelity to original text for clause descriptions.
+
+  Instructions:
+  - Do not invent any content.
+  - Follow the exact output format.
+
+  Output Structure:
+  - Document Type: <document_type>
+  - Clause 1: <Clause Name> - <Clause Content>
+  - Clause 2: <Clause Name> - <Clause Content>
+
+  Input Contract Text:
+  {contract_text}

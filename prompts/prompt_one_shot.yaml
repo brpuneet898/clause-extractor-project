@@ -1,0 +1,20 @@
+prompt: |
+  Follow the provided example carefully before attempting the main task.
+
+  Example:
+  Input Contract Text:
+  {example_input_text}
+
+  Expected Output:
+  - Document Type: Service Agreement
+  - Clause 1: Termination - This agreement may be terminated by either party with a written 30 days' notice.
+  - Clause 2: Confidentiality - The parties agree to maintain confidentiality.
+
+  Now your task:
+  Given the contract text:
+  {contract_text}
+
+  Please extract clauses exactly in the above structure and style.
+  - Use explicit clause names where available.
+  - Otherwise, deduce an appropriate name based on the content.
+  - Only use content directly from the document for clause description.

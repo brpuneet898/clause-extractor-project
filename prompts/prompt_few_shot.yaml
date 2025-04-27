@@ -1,0 +1,27 @@
+prompt: |
+  Carefully study the multiple examples provided to understand the pattern of clause extraction.
+
+  Example 1:
+  Input Contract Text:
+  {example1_input}
+
+  Output:
+  - Document Type: Lease Agreement
+  - Clause 1: Payment Terms - Tenant shall pay the rent before the 5th of each month.
+
+  Example 2:
+  Input Contract Text:
+  {example2_input}
+
+  Output:
+  - Document Type: Employment Contract
+  - Clause 1: Compensation - Employee will receive an annual salary of $60,000.
+
+  Your task:
+  Given the contract text below, follow the same approach:
+  - Document Type: <document_type>
+  - Clause 1: <Clause Name> - <Clause Content>
+  - Clause 2: <Clause Name> - <Clause Content>
+
+  Contract Text:
+  {contract_text}
