@@ -20,7 +20,8 @@ embedding:
 
 database:
   vector_store: "FAISS"
-  embedding_model: "MiniLM"
+  embedding: "HuggingFaceEmbeddings"
+  embedding_model: "all-MiniLM-L6-v2"
 
 api:
   provider: "Groq API"  
